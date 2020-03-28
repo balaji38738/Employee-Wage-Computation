@@ -6,13 +6,19 @@ public class EmpWageComputation {
 	public static final int NUM_WORKING_DAYS = 20;
 	public static final int MAX_HRS_IN_MONTH = 100;
 
+	//Variables
+	public static int empHrs = 0, empWage = 0, totalEmpWage = 0,
+					  totalWorkingDays = 0, totalEmpHrs = 0;
+
 	public static void main(String[] args) {
 		
 		System.out.println("Welcome to Employee Wage Computation");
+		computeEmpWage();
 
-		//Variables
-		int empHrs = 0, empWage = 0, totalEmpWage = 0,
-			totalWorkingDays = 0, totalEmpHrs = 0;
+	}
+
+	//Calculates employee wage
+	public static void computeEmpWage() {
 
 		//Computation
 		while (totalEmpHrs <= MAX_HRS_IN_MONTH &&
@@ -36,6 +42,7 @@ public class EmpWageComputation {
 				                " | Employee wage: " + empWage);
 		}
  		System.out.println("Employee Wage for month: " + totalEmpWage);
+
 	}
 
 }
