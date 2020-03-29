@@ -1,3 +1,5 @@
+import java.util.*;
+
 interface Computable {
 
 	void computeEmpWage();
@@ -8,26 +10,20 @@ public class EmpWageComputation implements Computable {
 
 	//CONSTANTS
 	private static final int IS_FULL_TIME = 1, IS_PART_TIME = 2;
-	private final int TOTAL_COMPANIES;
 
 	//Variables
 	private static int empRatePerHour = 0, numWorkingDays = 0;
 	private static int maxHrsInMonth = 0;
-	CompanyEmpWage employee[];
-
-	public EmpWageComputation(int totalCompanies) {
-
-		this.TOTAL_COMPANIES = totalCompanies;
-		this.employee = new CompanyEmpWage [this.TOTAL_COMPANIES];
-
-	}
+	ArrayList <CompanyEmpWage> employee =  new ArrayList<CompanyEmpWage>();
 
 	public static void main(String[] args) {
 
+		Scanner sc = new Scanner(System.in);
 		System.out.println("Welcome to Employee Wage Computation\n");
-		EmpWageComputation firstComp = new EmpWageComputation(20);
-		for (int i = 0; i < firstComp.employee.length; i++) {
-				
+		EmpWageComputation firstComp = new EmpWageComputation();
+		int userChoice;
+		System.out.println("Employee Variables are added automatically\n");
+		do{	
 			//Generate Employee rate between 100 to 300
 			empRatePerHour = (int) (100 + Math.random() * 300);
 
@@ -37,24 +33,25 @@ public class EmpWageComputation implements Computable {
 			//Generate Employee work hours between 100 to 200
 			maxHrsInMonth = (int) (100 + Math.random() * 200);
 
-			firstComp.employee[i] = new CompanyEmpWage(empRatePerHour,
-			                        numWorkingDays, maxHrsInMonth);
-		}
+			firstComp.employee.add(new CompanyEmpWage(empRatePerHour,
+			                        numWorkingDays, maxHrsInMonth));
+			System.out.print("Employee added, do you want to add more ?(Yes-1 : No-0): ");
+			userChoice = sc.nextInt();
+		}while(userChoice == 1);
 		firstComp.computeEmpWage();
 
 	}
 
 	//Calculates employee wage
 	public void computeEmpWage() {
-
-		for (int empNo = 0; empNo < employee.length; empNo++)
-		{
+		int empNo = 1;
+		for (CompanyEmpWage emp : employee) {
 			int empHrs = 0, empWage = 0, totalEmpWage = 0;
 			int totalWorkingDays = 0, totalEmpHrs = 0;
 
 			//Computation
-			while (totalEmpHrs <= employee[empNo].getMaxHrsInMonth() &&
-			       totalWorkingDays < employee[empNo].getNumWorkingDays()) {
+			while (totalEmpHrs <= emp.getMaxHrsInMonth() &&
+			       totalWorkingDays < emp.getNumWorkingDays()) {
 				totalWorkingDays++;
 				int empCheck = ((int) Math.floor(Math.random() * 10)) % 3;
 				switch(empCheck) {
@@ -68,11 +65,12 @@ public class EmpWageComputation implements Computable {
 						empHrs = 0;
 				}
 				totalEmpHrs += empHrs;
-				empWage = empHrs * employee[empNo].getEmpRatePerHour();
+				empWage = empHrs * emp.getEmpRatePerHour();
 				totalEmpWage += empWage;
 			}
-			employee[empNo].setTotalEmpWage(totalEmpWage);
-	 		System.out.println("Monthly Wage of employee " + (empNo + 1) + ":" + totalEmpWage);
+			emp.setTotalEmpWage(totalEmpWage);
+	 		System.out.println("Monthly Wage of employee " + empNo + ":" + totalEmpWage);
+	 		empNo++;
 	 	}
 
 	}
