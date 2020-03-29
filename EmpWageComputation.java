@@ -25,6 +25,7 @@ public class EmpWageComputation implements Computable {
 	public static void main(String[] args) {
 
 		System.out.println("Welcome to Employee Wage Computation\n");
+<<<<<<< HEAD
 		EmpWageComputation firstComp = new EmpWageComputation(20);
 	
 		//Generate Employee rate between 100 to 300
@@ -39,6 +40,22 @@ public class EmpWageComputation implements Computable {
 		for (int i = 0; i < firstComp.employee.length; i++) {
 			firstComp.employee[i] = new CompanyEmpWage(empRatePerHour,
 			                        numWorkingDays, maxHrsInMonth);
+=======
+
+		CompanyEmpWage employee[] = new CompanyEmpWage [TOTAL_COMPANIES];
+		for (int i = 0; i < TOTAL_COMPANIES; i++) {
+			//Generate Employee rate between 100 to 300
+			empRatePerHour = (int) (100 + Math.random() * 300);
+
+			//Generate Employee working days between 20 to 25
+			numWorkingDays = (int) (20 + Math.random() * 25);
+
+			//Generate Employee work hours between 100 to 200
+			maxHrsInMonth = (int) (100 + Math.random() * 200);
+			employee[i] = new CompanyEmpWage(empRatePerHour, numWorkingDays,
+											 maxHrsInMonth);
+			computeEmpWage(employee[i], i);
+>>>>>>> UC10-CompanyEmpWage
 		}
 		firstComp.computeEmpWage();
 
