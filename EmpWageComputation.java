@@ -15,13 +15,13 @@ public class EmpWageComputation {
 		CompanyEmpWage employee[] = new CompanyEmpWage [TOTAL_COMPANIES];
 		for (int i = 0; i < TOTAL_COMPANIES; i++) {
 			//Generate Employee rate between 100 to 300
-			empRatePerHour = (int) (100 + Math.random() * 300);
+			empRatePerHour = (int) (100 + Math.random() * 200);
 
 			//Generate Employee working days between 20 to 25
-			numWorkingDays = (int) (20 + Math.random() * 25);
+			numWorkingDays = (int) (20 + Math.random() * 5);
 
 			//Generate Employee work hours between 100 to 200
-			maxHrsInMonth = (int) (100 + Math.random() * 200);
+			maxHrsInMonth = (int) (100 + Math.random() * 100);
 			employee[i] = new CompanyEmpWage(empRatePerHour, numWorkingDays,
 											 maxHrsInMonth);
 			computeEmpWage(employee[i], i);
