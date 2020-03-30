@@ -25,13 +25,13 @@ public class EmpWageComputation implements Computable {
 		System.out.println("Employee Variables are added automatically\n");
 		do{	
 			//Generate Employee rate between 100 to 300
-			empRatePerHour = (int) (100 + Math.random() * 300);
+			empRatePerHour = (int) (100 + Math.random() * 200);
 
 			//Generate Employee working days between 20 to 25
-			numWorkingDays = (int) (20 + Math.random() * 25);
+			numWorkingDays = (int) (20 + Math.random() * 5);
 
 			//Generate Employee work hours between 100 to 200
-			maxHrsInMonth = (int) (100 + Math.random() * 200);
+			maxHrsInMonth = (int) (100 + Math.random() * 100);
 
 			firstComp.employee.add(new CompanyEmpWage(empRatePerHour,
 			                        numWorkingDays, maxHrsInMonth));
@@ -40,13 +40,26 @@ public class EmpWageComputation implements Computable {
 		}while(userChoice == 1);
 		firstComp.computeEmpWage();
 
+		int empNo;
+		while (true) {
+	 		System.out.print("Enter employee number to get total wage: ");
+	 		empNo = sc.nextInt();
+	 		if (empNo > 0 && empNo <= firstComp.employee.size()) {
+	 			System.out.print("Total wage of employee = ");
+	 			System.out.println(firstComp.employee.get(empNo - 1).getTotalEmpWage());
+	 			break;
+	 		}
+	 		else
+	 			System.out.println("Invalid employee number");
+	 	}
+
 	}
 
 	//Calculates employee wage
 	public void computeEmpWage() {
 		int empNo = 1;
 		for (CompanyEmpWage emp : employee) {
-			System.out.println("Daily wage of employee " + empNo);
+			System.out.println("\nDaily wage of employee " + empNo);
 			int empHrs = 0, empWage = 0, totalEmpWage = 0;
 			int totalWorkingDays = 0, totalEmpHrs = 0;
 
@@ -72,10 +85,8 @@ public class EmpWageComputation implements Computable {
 				System.out.println("Day " + totalWorkingDays + ":" + empWage);
 			}
 			emp.setTotalEmpWage(totalEmpWage);
-	 		System.out.println("Monthly Wage of employee " + empNo + ":" + totalEmpWage + "\n");
 	 		empNo++;
 	 	}
-
 	}
 
 }
@@ -85,8 +96,9 @@ class CompanyEmpWage {
 	//CONSTANTS
 	private final int EMP_RATE_PER_HOUR, NUM_WORKING_DAYS;
 	private	final int MAX_HRS_IN_MONTH;
-	private ArrayList<Integer> dailyWages = new ArrayList<Integer>();
+
 	//Variables
+	private ArrayList<Integer> dailyWages = new ArrayList<Integer>();
 	private int totalEmpWage = 0;
 
 	public CompanyEmpWage(int empRatePerHour,
@@ -126,6 +138,12 @@ class CompanyEmpWage {
 	public void addDailyWage(int wage) {
 
 		dailyWages.add(wage);
+
+	}
+
+	public int getTotalEmpWage() {
+
+		return totalEmpWage;
 
 	}
 
